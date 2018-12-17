@@ -1,15 +1,16 @@
 #include "headerfiles/system.h"
 #include "headerfiles/students.h"
+#include "headerfiles/academicians.h"
 #include <string>
 #include <iostream>
 #include <fstream>
 #include <sstream>
 using namespace std;
 
-System::System(char* listOfStudents, char* listOfAcademicians, char* listofAppointments) { // Setting system start values.
+System::System(string listOfStudents, string listOfAcademicians, string listofAppointments) { // Setting system start values.
     this->studentsFile = listOfStudents;
-    this->academiciansFile = academiciansFile;
-    this->appointmentsFile = appointmentsFile;
+    this->academiciansFile = listOfAcademicians;
+    this->appointmentsFile = listofAppointments;
 };
 
 void System::showMenu() {
@@ -47,10 +48,48 @@ void System::getNewStudentInfo() {
     addStudenttoFile(student);
 };
 
+void System::getNewAcademianInfo() {
+    int aID;
+    char Phone[12];
+    string Name, SurN, Dept, Email;
+    string Appellation;
+    cout << "New Academian ID: ";
+    cin >> aID;
+    cout << endl;
+    cout << "New Academian Appellation: ";
+    cin >> Appellation;
+    cout << endl;
+    cout << "New Academian Phone: ";
+    cin >> Phone;
+    cout << endl;
+    cout << "New Academian Name: ";
+    cin >> Name;
+    cout << endl;
+    cout << "New Academian Surname: ";
+    cin >> SurN;
+    cout << endl;
+    cout << "New Academian Department: ";
+    cin >> Dept;
+    cout << endl;
+    cout << "New Academian Email: ";
+    cin >> Email;
+    cout << endl;
+    Academicians academician(aID, Appellation, Name, SurN, Dept, Email, Phone);
+    addAcademiciantoFile(academician);
+};
+
 void System::addStudenttoFile(Students &s) {
     fstream file;
     file.open (this->studentsFile, fstream::in | fstream::out | fstream::app);
     file << s.getsID() << " " << s.getName() << " " << s.getSurN() << " " << s.getDept() << " " <<s.getRegYear() << " " << s.getEmail() << " " << s.getPhone() << endl; 
     file.close();
     cout << "Student successfully added." << endl;
+};
+
+void System::addAcademiciantoFile(Academicians &a) {
+    fstream file;
+    file.open (this->academiciansFile, fstream::in | fstream::out | fstream::app);
+    file << a.getaID() << " " << a.getName() << " " << a.getSurN() << " " << a.getDept() << " " << a.getAppellation() << " " << a.getEmail() << " "  << a.getPhone() << endl; 
+    file.close();
+    cout << "Academician successfully added." << this->academiciansFile << endl;
 };

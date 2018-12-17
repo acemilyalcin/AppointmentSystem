@@ -3,9 +3,6 @@
 #include "headerfiles/system.h"
 #include <string>
 using namespace std;
-Students::Students() {
-    cout << "ok";
-}
 Students::Students(int sID, int RegYear, string Name, string SurN, string Dept, string Email, char* Phone) {
     this->sID = sID;
     this->Name = Name;
