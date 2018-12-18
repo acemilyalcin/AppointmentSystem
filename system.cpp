@@ -11,18 +11,23 @@ System::System(string listOfStudents, string listOfAcademicians, string listofAp
     this->studentsFile = listOfStudents;
     this->academiciansFile = listOfAcademicians;
     this->appointmentsFile = listofAppointments;
+    getAllStudents();
 };
 
 void System::showMenu() {
     cout << "New Person \t New Appointment - 1" << endl;
     cout << "Student - 2" << endl;
     cout << "Academicians - 3" << endl;
+
+    cout << "Delete Person \t New Appointment - 1" << endl;
+    cout << "Student - 4" << endl;
+    cout << "Academicians - 5" << endl;
+
 }
 
 void System::getNewStudentInfo() {
     int sID, RegYear;
-    char Phone[12];
-    string Name, SurN, Dept, Email;
+    string Name, SurN, Dept, Email, Phone;
     cout << "New Student ID: ";
     cin >> sID;
     cout << endl;
@@ -50,8 +55,7 @@ void System::getNewStudentInfo() {
 
 void System::getNewAcademianInfo() {
     int aID;
-    char Phone[12];
-    string Name, SurN, Dept, Email;
+    string Name, SurN, Dept, Email, Phone;
     string Appellation;
     cout << "New Academian ID: ";
     cin >> aID;
@@ -91,5 +95,38 @@ void System::addAcademiciantoFile(Academicians &a) {
     file.open (this->academiciansFile, fstream::in | fstream::out | fstream::app);
     file << a.getaID() << " " << a.getName() << " " << a.getSurN() << " " << a.getDept() << " " << a.getAppellation() << " " << a.getEmail() << " "  << a.getPhone() << endl; 
     file.close();
-    cout << "Academician successfully added." << this->academiciansFile << endl;
+    cout << "Academician successfully added." << endl;
 };
+
+void System::getAllStudents() {
+    ifstream file;
+    file.open(this->studentsFile);
+    string s;
+    int tempInteger;
+    int i=0;
+    char c; 
+    int line_no = 1;
+    while (file.get(c)) 
+    {
+        if (c == '\n') 
+        line_no++;  
+    } 
+    Students* students = new Students[line_no];
+    while(!file.eof()) {
+        file >> tempInteger;
+        students[i].setsID(tempInteger);
+        file >> s;
+        students[i].setName(s);
+        file >> s;
+        students[i].setSurN(s);
+        file >> s;
+        students[i].setDept(s);
+        file >> tempInteger;
+        students[i].setRegYear(tempInteger);
+        file >> s;
+        students[i].setEmail(s);
+        file >> s;
+        students[i].setPhone(s);
+        i++;
+    }
+}

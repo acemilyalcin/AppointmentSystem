@@ -8,6 +8,6 @@ class Person {
     string SurN;
     string Dept;
     string Email;
-    char Phone[20];
+    string Phone;
 };
 #endif

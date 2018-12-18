@@ -15,8 +15,8 @@ int main(int argc,char* args[]) {
     int option = 0;
     cin >> option;
     switch(option) {
-        case 2: sys1.getNewStudentInfo();
-        case 3: sys1.getNewAcademianInfo();
+       case 2: {sys1.getNewStudentInfo();break;}
+       case 3: {sys1.getNewAcademianInfo();break;}
     }
     return 0;
 }
